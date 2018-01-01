@@ -128,6 +128,19 @@ Grid.prototype.addRandomTile = function () {
   }
 };
 
+// Adds a tile in a given position
+Grid.prototype.addTile = function (x, y, value) {
+  var tile = new Tile({'x':x, 'y':y}, value);
+  this.insertTile(tile);
+};
+
+
+// Deletes a tile in the given position
+Grid.prototype.deleteTile = function (x, y) {
+  var tile = new Tile({'x':x, 'y':y}, null);
+  this.removeTile(tile);
+};
+
 // Save all tile positions and remove merger info
 Grid.prototype.prepareTiles = function () {
   this.eachCell(function (x, y, tile) {
@@ -216,7 +229,7 @@ Grid.prototype.move = function (direction) {
         }
 
         if (!self.positionsEqual(cell, tile)) {
-          self.playerTurn = false;
+          // self.playerTurn = false;
           //console.log('setting player turn to ', self.playerTurn);
           moved = true; // The tile moved from its original cell!
         }

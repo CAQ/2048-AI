@@ -24,10 +24,10 @@ KeyboardInputManager.prototype.listen = function () {
   var self = this;
 
   var map = {
-    38: 0, // Up
-    39: 1, // Right
-    40: 2, // Down
-    37: 3, // Left
+//    38: 0, // Up
+//    39: 1, // Right
+//    40: 2, // Down
+//    37: 3, // Left
     75: 0, // vim keybindings
     76: 1,
     74: 2,
@@ -47,7 +47,7 @@ KeyboardInputManager.prototype.listen = function () {
         self.emit("move", mapped);
       }
 
-      if (event.which === 32) self.restart.bind(self)(event);
+      // if (event.which === 32) self.restart.bind(self)(event);
     }
   });
 
@@ -57,7 +57,7 @@ KeyboardInputManager.prototype.listen = function () {
   var hintButton = document.getElementById('hint-button');
   hintButton.addEventListener('click', function(e) {
     e.preventDefault();
-    var feedbackContainer  = document.getElementById('feedback-container');
+    var feedbackContainer = document.getElementById('feedback-container');
     feedbackContainer.innerHTML = '<img src=img/spinner.gif />';
     self.emit('think');
   });
@@ -65,8 +65,15 @@ KeyboardInputManager.prototype.listen = function () {
   var runButton = document.getElementById('run-button');
   runButton.addEventListener('click', function(e) {
     e.preventDefault();
-    self.emit('run')
-  })
+    self.emit('run');
+  });
+
+  var putButton = document.getElementById('put-button');
+  putButton.addEventListener('click', function(e) {
+    e.preventDefault();
+    self.emit('put');
+    hintButton.click();
+  });
 
 
   // Listen to swipe events

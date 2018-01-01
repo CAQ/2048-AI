@@ -13,6 +13,7 @@ function GameManager(size, InputManager, Actuator) {
     this.actuator.showHint(best.move);
   }.bind(this));
 
+  this.inputManager.on('put', this.put.bind(this));
 
   this.inputManager.on('run', function() {
     if (this.running) {
@@ -39,7 +40,7 @@ GameManager.prototype.restart = function () {
 // Set up the game
 GameManager.prototype.setup = function () {
   this.grid         = new Grid(this.size);
-  this.grid.addStartTiles();
+  // this.grid.addStartTiles();
 
   this.ai           = new AI(this.grid);
 
@@ -51,6 +52,18 @@ GameManager.prototype.setup = function () {
   this.actuate();
 };
 
+
+// Put a number on a specific grid
+GameManager.prototype.put = function() {
+  var x = parseInt(document.getElementById('x').value);
+  var y = parseInt(document.getElementById('y').value);
+  var v = parseInt(document.getElementById('v').value);
+  if (v == 0)
+    this.grid.deleteTile(x, y);
+  else
+    this.grid.addTile(x, y, v);
+  this.actuate();
+};
 
 // Sends the updated grid to the actuator
 GameManager.prototype.actuate = function () {
@@ -68,7 +81,7 @@ GameManager.prototype.move = function(direction) {
 
   if (!result.won) {
     if (result.moved) {
-      this.grid.computerMove();
+      // this.grid.computerMove();
     }
   } else {
     this.won = true;
